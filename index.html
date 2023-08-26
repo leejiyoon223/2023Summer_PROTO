@@ -53,7 +53,7 @@
     object-fit: cover;
   }
 </style>
-<title>iMac Screen Example</title>
+<title>Muscular System</title>
 </head>
 <body>
   <div id="container">
@@ -71,6 +71,13 @@
     const container = document.getElementById('container');
     
     document.body.addEventListener('click', (event) => {
+      // Check if the click is within the top 100px of the screen
+      if (event.clientY <= 100) {
+        // Add your hyperlink redirection logic here
+        window.location.href = 'https://www.hideouspassion.com/'; // Replace with the actual URL
+        return; // Exit the event listener
+      }
+      
       const centerX = container.offsetWidth / 2;
       const centerY = container.offsetHeight / 2;
       const mouseX = event.clientX;
