@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #video-container {
+    position: relative;
+    width: 1000px;
+    height: 1000px;
+    overflow: hidden;
+    z-index: -1;
+    display: none;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center center;
+    transition: transform 0.5s;
+  }
+
+  #image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+</style>
+<title>iMac Screen Example</title>
+</head>
+<body>
+  <div id="container">
+    <div id="video-container">
+      <video id="video" muted>
+        <source src="컴포지션 2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <img id="image" src="muscular.png" alt="iMac Screen Image">
+  </div>
+  <script>
+    const videoContainer = document.getElementById('video-container');
+    const video = document.getElementById('video');
+    const container = document.getElementById('container');
+    
+    document.body.addEventListener('click', (event) => {
+      const centerX = container.offsetWidth / 2;
+      const centerY = container.offsetHeight / 2;
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      
+      const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
+      const angleDeg = (angle * 180) / Math.PI;
+      
+      videoContainer.style.display = 'block';
+      video.play();
+      video.style.transform = `rotate(${angleDeg}deg)`;
+      
+      video.addEventListener('ended', () => {
+        video.pause();
+        video.style.transform = 'none';
+        videoContainer.style.display = 'none';
+      }, { once: true });
+      
+      // Remove the click event listener after playing the video
+      document.body.removeEventListener('click', arguments.callee);
+    });
+  </script>
+</body>
+</html>
